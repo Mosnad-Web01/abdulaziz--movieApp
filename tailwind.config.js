@@ -8,7 +8,7 @@ module.exports = {
     './services/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',
     './public/**/*.{html}',
-    './node_modules/@shadcn/ui/**/*.{js,ts,jsx,tsx}', // Add this line
+    './node_modules/@shadcn/ui/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {

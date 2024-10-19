@@ -1,6 +1,9 @@
+import React from 'react'
 
-export default function page() {
+function page() {
   return (
-    <div>movies</div>
+    <div>page</div>
   )
 }
+
+export default page

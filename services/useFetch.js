@@ -1,48 +1,27 @@
 // app/services/useFetch.js
 
-import axios from 'axios';
+const BASE_URL = 'https://api.themoviedb.org/3';
+const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
 
-const API_URL = 'https://api.themoviedb.org/3';
+/**
+ * Fetch data from TMDB API
+ * @param {string} endpoint - The API endpoint to call
+ * @returns {Promise<Object>} - The response data
+ */
+export const fetchData = async (endpoint) => {
+  const url = `${BASE_URL}${endpoint}?api_key=${API_KEY}`;
 
-
-
-export const fetchPopularMovies = async () => {
   try {
-    const response = await axios.get(`${API_URL}/movie/popular`, {
-      params: {
-        api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-      },
-    });
-    return response.data.results;
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} - ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
   } catch (error) {
-    console.error('Error fetching popular movies:', error);
-    return [];
-  }
-};
-
-
-
-// // services/useFetch.js
-// export const fetchGenres = async () => {
-//   return [
-//     { id: 1, name: 'Action' },
-//     { id: 2, name: 'Comedy' },
-//     { id: 3, name: 'Drama' },
-//     // Add more genres as needed
-//   ];
-// };
-
-
-export const fetchGenres = async () => {
-  try {
-    const response = await axios.get(`${API_URL}/genre/movie/list`, {
-      params: {
-        api_key: process.env.NEXT_PUBLIC_TMDB_API_KEY,
-      },
-    });
-    return response.data.genres;
-  } catch (error) {
-    console.error('Error fetching genres:', error);
-    return [];
+    console.error('Fetch error:', error);
+    throw error;
   }
 };
