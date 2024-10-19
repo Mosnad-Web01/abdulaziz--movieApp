@@ -27,29 +27,32 @@ export default async function MoviePage({ params }) {
     notFound();
   }
 
-  const { title, overview, poster_path, vote_average } = movieData;
+  const {
+    title,
+    overview,
+    poster_path,
+    vote_average,
+    release_date,
+    genres,
+    backdrop_path,
+  } = movieData;
 
   return (
     <ToastProvider>
-      <div className="relative bg-gray-900 rounded-lg shadow-lg">
+      <div className="relative bg-gray-900 text-white min-h-screen">
         <div className="absolute inset-0">
           <Image
-            src={`https://image.tmdb.org/t/p/original${poster_path}`}
-            e
+            src={`https://image.tmdb.org/t/p/original${backdrop_path}`}
             alt={title}
             layout="fill"
             objectFit="cover"
-            className="opacity-30 rounded-lg relative "
+            className="bg-opacity-10 blur-sm"
           />
         </div>
 
-        <div className="relative container mx-auto p-6 bg-gray-900 rounded-lg shadow-lg bg-opacity-80">
-          <h1 className="text-4xl font-bold mb-6 text-center text-white">
-            {title}
-          </h1>
-
-          <div className="flex justify-center mb-6">
-            <div className="relative w-64 h-96 overflow-hidden rounded-lg shadow-lg transition-transform transform hover:scale-105  ">
+        <div className="relative container mx-auto p-6 z-10">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center gap-8">
+            <div className="relative w-64 h-96  flex-shrink-0 rounded-lg shadow-lg overflow-hidden">
               <Image
                 src={`https://image.tmdb.org/t/p/w500${poster_path}`}
                 alt={title}
@@ -57,27 +60,55 @@ export default async function MoviePage({ params }) {
                 objectFit="cover"
                 className="rounded-lg"
               />
-              <p className="text-xl mb-4 text-center text-gray-400 absolute top-0 z-0">
-                <span className="font-semibold text-yellow-400">
-                  {vote_average}
-                </span>
-              </p>
+            </div>
+
+            <div className="flex-1 text-left">
+              <h1 className="text-5xl font-bold mb-4">{title}</h1>
+
+              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-4">
+                <p className="text-lg">
+                  <span className="font-bold">Rating:</span>
+                  <span className="text-yellow-400 ml-2">{vote_average}</span>
+                </p>
+                <p className="text-lg">
+                  <span className="font-bold">Release Date:</span>
+                  <span className="ml-2">{release_date}</span>
+                </p>
+              </div>
+
+              <div className="mt-4">
+                <p className="text-lg font-semibold">Genres:</p>
+                <div className="flex gap-2 flex-wrap">
+                  {genres.map((genre) => (
+                    <span
+                      key={genre.id}
+                      className="bg-blue-600 px-2 py-1 rounded text-sm"
+                    >
+                      {genre.name}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
-          <Accordion type="single" collapsible>
+          <div className="mt-8">
+            <h2 className="text-2xl font-bold mb-4">Overview</h2>
+            <p className="text-gray-300">{overview}</p>
+          </div>
+
+          <Accordion type="single" collapsible className="mt-8">
             <AccordionItem value="overview">
-              <AccordionTrigger className="bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition">
-                Overview
-              </AccordionTrigger>
               <AccordionContent className="p-4 bg-gray-800 border border-gray-700 rounded-lg shadow-md">
-                <p className="text-gray-300">{overview}</p>
+                <p className="text-gray-300">
+                  Additional movie details, cast, reviews, etc.
+                </p>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
-
-          <ToastViewport />
         </div>
+
+        <ToastViewport />
       </div>
     </ToastProvider>
   );

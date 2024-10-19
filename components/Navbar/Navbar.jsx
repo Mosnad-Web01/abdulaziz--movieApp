@@ -11,7 +11,7 @@ const Navbar = () => {
         </div>
         <div className="flex space-x-4">
           
-          <Link href="/movies">Movies</Link>
+          <Link href="/movie">Movie</Link>
           <Link href="/actors">Actors</Link>
           <input type="text" placeholder="Search..." className="p-2 rounded" />
         </div>
