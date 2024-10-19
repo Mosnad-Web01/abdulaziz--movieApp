@@ -1,5 +1,6 @@
 import { fetchData } from "@/services/useFetch";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function Actors() {
   try {
@@ -17,22 +18,21 @@ export default async function Actors() {
               style={{ minWidth: "320px" }}
             >
               {actors.map((actor) => (
-                <div
-                  key={actor.id}
-                  className="bg-white rounded-lg shadow-md p-4 flex-shrink-0 w-64 overflow-x-auto"
-                >
-                  <Image
-                    src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
-                    alt={actor.name}
-                    width={800}
-                    height={500}
-                    className="w-full h-auto object-cover rounded-lg mb-2"
-                  />
-                  <h2 className="text-lg font-semibold">{actor.name}</h2>
-                  <p className="text-gray-600">
-                    Popularity: {actor.popularity.toFixed(1)}
-                  </p>
-                </div>
+                <Link key={actor.id} href={`/actors/${actor.id}`}>
+                  <div className="bg-white rounded-lg shadow-md p-4 flex-shrink-0 w-64 overflow-x-auto">
+                    <Image
+                      src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+                      alt={actor.name}
+                      width={800}
+                      height={500}
+                      className="w-full h-auto object-cover rounded-lg mb-2"
+                    />
+                    <h2 className="text-lg font-semibold">{actor.name}</h2>
+                    <p className="text-gray-600">
+                      Popularity: {actor.popularity.toFixed(1)}
+                    </p>
+                  </div>
+                </Link>
               ))}
             </div>
           </div>
