@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer/Footer";
 import { fetchData } from "@/services/useFetch";
 import Image from "next/image";
 
@@ -38,8 +37,6 @@ export default async function Actors() {
             </div>
           </div>
         </div>
-
-        <Footer />
       </>
     );
   } catch (error) {
