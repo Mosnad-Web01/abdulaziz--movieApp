@@ -1,6 +1,7 @@
 import { fetchData } from "@/services/useFetch";
 import Image from "next/image";
 import Link from "next/link";
+import CardCarousel from "@/components/Carousel"; // Import the CardCarousel component
 
 export default async function HomePage() {
   try {
@@ -10,38 +11,28 @@ export default async function HomePage() {
     return (
       <>
         <div className="container mx-auto p-4">
+          {/* Hero Section */}
+          {/* <div className=" mb-6">
+            <Image
+              src="https://image.tmdb.org/t/p/original/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg" // Replace with actual hero image URL
+              alt="Hero Image"
+              width={920}
+              height={200}
+              layout="responsive"
+              objectFit="cover"
+              className="rounded-lg shadow-lg"
+            />
+            <div className="absolute inset-0 flex items-center justify-center text-white">
+              <h1 className="text-4xl font-bold">Welcome to Movie Hub</h1>
+            </div>
+          </div> */}
+
           <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
             Popular Movies
           </h1>
 
-          <div className="overflow-x-auto">
-            <div
-              className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6"
-              style={{ minWidth: "320px" }}
-            >
-              {movies.map((movie) => (
-                <Link key={movie.id} href={`/movie/${movie.id}`} passHref>
-                  <div className="bg-gray-800 hover:bg-gray-700 rounded-lg shadow-md p-4 flex-shrink-0 cursor-pointer transition-transform transform hover:scale-105">
-                    <div className="relative w-full h-80 overflow-hidden rounded-lg mb-2">
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                        alt={movie.title}
-                        layout="fill"
-                        objectFit="cover"
-                        className="rounded-lg"
-                      />
-                    </div>
-                    <h2 className="text-lg font-semibold text-white">
-                      {movie.title}
-                    </h2>
-                    <p className="text-gray-400">
-                      Rating: {movie.vote_average}
-                    </p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          {/* Use CardCarousel instead of grid layout */}
+          <CardCarousel movies={movies} />
         </div>
       </>
     );
